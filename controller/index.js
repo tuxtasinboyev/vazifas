@@ -18,6 +18,7 @@ const POST=(req,res)=>{
         if(index!=-1){
             res.end("Xato bu id bor")
         } else{
+    const users = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/data/users.json"), "utf-8"));
 
         data.push(req.body)
 
@@ -29,6 +30,11 @@ const POST=(req,res)=>{
 }
 const  DELETE=()=>{
 
+const DELETE = (req, res) => {
+    let { id } = req.query
+    const users = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/data/users.json"), "utf-8"));
+    const user = users.filter(user => user.id !== Number(id));
+    fs.writeFileSync(path.join(process.cwd(), "/data/users.json"), JSON.stringify(user, null, 2))
 }
  export default{
     GET,
