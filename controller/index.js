@@ -1,9 +1,8 @@
-import fs from "fs"
-import path from "path"
 
-let data = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/vazifas/data/users.json"), "utf-8"));
+
 
 const GET = (req, res) => {
+   let data = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/vazifas/data/users.json"), "utf-8"));
    
    res.send(data);
 };
@@ -12,6 +11,7 @@ const GET_ID=()=>{
 
 }
 const POST=(req,res)=>{
+   let data = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/vazifas/data/users.json"), "utf-8"));
 
    let index = data.findIndex(l => l.id === req.body.id)
 
