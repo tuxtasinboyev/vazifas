@@ -1,34 +1,44 @@
-import fs from "fs"
-import path from "path"
-const GET = () => {
+
+
+
+const GET = (req, res) => {
+   let data = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/vazifas/data/users.json"), "utf-8"));
+   
+   res.send(data);
+};
+
+const GET_ID=()=>{
 
 }
+const POST=(req,res)=>{
+   let data = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/vazifas/data/users.json"), "utf-8"));
 
-const GET_ID = (req, res) => {
-    const { id } = req.params;
+   let index = data.findIndex(l => l.id === req.body.id)
 
+        if(index!=-1){
+            res.end("Xato bu id bor")
+        } else{
     const users = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/data/users.json"), "utf-8"));
 
-    const user = users.find(user => user.id === Number(id));
+        data.push(req.body)
 
-    if (user) {
-        res.status(200).json(user);
-    } else {
-        res.status(404).json({ error: "User not found" });
-    }
-};
-const POST = () => {
+        fs.writeFileSync("vazifas/data/users.json",JSON.stringify(data,null,4))
+
+        res.send("yozildi")
+        }
 
 }
+const  DELETE=()=>{
+
 const DELETE = (req, res) => {
     let { id } = req.query
     const users = JSON.parse(fs.readFileSync(path.join(process.cwd(), "/data/users.json"), "utf-8"));
     const user = users.filter(user => user.id !== Number(id));
     fs.writeFileSync(path.join(process.cwd(), "/data/users.json"), JSON.stringify(user, null, 2))
 }
-export default {
+ export default{
     GET,
     GET_ID,
     POST,
     DELETE
-}
+ }

@@ -4,7 +4,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "go": "nodemon index.js"
+    "run": "nodemon vazifas/index.js"
   },
   "keywords": [],
   "author": "",
